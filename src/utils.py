@@ -15,21 +15,21 @@ def calcular_costo(finca, permutacion):
         fin_riego = tiempo_actual + tr
         retraso = max(0, fin_riego - ts)
         costo_total += p * retraso
-        tiempo_actual += tr  # actualizar el tiempo para el siguiente tablón
+        tiempo_actual += tr  
     
     return costo_total
 
 
 def tiempos_inicio(finca, permutacion):
     """
-    con esta funcion calcularemos en que momento se debe iniciar a regar cada tablón
+    con esta funcion calcularemos en que momento se debe iniciar a regar cada tablon
     """
     tiempos = [0] * len(finca)
     tiempo_actual = 0
     
     for idx, i in enumerate(permutacion):
         tiempos[i] = tiempo_actual
-        tiempo_actual += finca[i][1]  # sumar tiempo de riego tr
+        tiempo_actual += finca[i][1]  
     
     return tiempos
     
