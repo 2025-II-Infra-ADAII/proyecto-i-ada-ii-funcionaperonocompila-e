@@ -32,4 +32,16 @@ def tiempos_inicio(finca, permutacion):
         tiempo_actual += finca[i][1]  
     
     return tiempos
+
+
+def leer_finca(ruta_archivo):
+    """
+    con esta funcion leemos el archivo de entrada la cual debe estar en un orden especifico
+    """
+    with open(ruta_archivo, 'r') as f:
+        lineas = [line.strip() for line in f.readlines()]
+    
+    n = int(lineas[0])
+    finca = [tuple(map(int, linea.split(','))) for linea in lineas[1:n+1]]
+    return finca
     
