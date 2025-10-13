@@ -44,4 +44,15 @@ def leer_finca(ruta_archivo):
     n = int(lineas[0])
     finca = [tuple(map(int, linea.split(','))) for linea in lineas[1:n+1]]
     return finca
+
+
+
+def guardar_salida(ruta_archivo, costo, permutacion):
+    """
+    con esta funcion se guarda el archivo con la informacion del costo y la permutacion
+    """
+    with open(ruta_archivo, 'w') as f:
+        f.write(str(costo) + '\n')
+        for i in permutacion:
+            f.write(str(i) + '\n')
     
