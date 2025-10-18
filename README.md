@@ -1,22 +1,36 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/GxFB-nwe)
 
-# Asignación: [Nombre de la asignación]
 
-**Fecha:** [DD/MM/AAAA]
-**Curso:** [Nombre del Curso]
+# 💧 Proyecto 1 — Riego Óptimo
+
+
+**Curso:** Análisis de Algoritmos II (ADA II)
+**Programa:** Ingeniería de Sistemas – Universidad del Valle
 
 ---
 
 ## 👥 Integrantes del Grupo
 
-| Nombre Completo       | Código  | Rol            | Correo Electrónico       |
-|-----------------------|---------|----------------|--------------------------|
-| [Estudiante 1]        | 123456  | [Líder/Colab.] | [correo1@institucion.edu]|
-| [Estudiante 2]        | 123457  | [Colaborador]  | [correo2@institucion.edu]|
-| [Estudiante 3]        | 123458  | [Colaborador]  | [correo3@institucion.edu]|
+| Nombre Completo           | Código   | Rol                                                   | Correo Electrónico                                                                  |
+| ------------------------- | -------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Kevin Andrés Bejarano** | 202067678 |
 
+| **[Compañero 2]**         | [Código] |                         | 
+             |
+| **[Compañero 3]**         | [Código] |
+
+| **[Compañero 4]**         | [Código] |
 ---
 
-## 📌 Descripción del Taller
-[Breve párrafo explicando el propósito y objetivos del taller (4-6 líneas). Ejemplo:]
-*"Este taller busca analizar [tema principal] mediante [metodología]. Los objetivos incluyen [objetivo 1], [objetivo 2] y [objetivo 3], aplicando conceptos vistos en clase como [concepto relevante]."*
+## 📌 Descripción del Proyecto
+
+Este proyecto aborda el **problema del riego óptimo**, donde se busca determinar el orden ideal para regar una serie de tablones con distintas características (tiempo de supervivencia, tiempo de regado y prioridad) con el fin de **minimizar el sufrimiento de los cultivos por falta de agua**.
+
+Se implementaron tres estrategias clásicas de análisis de algoritmos:
+
+* **Fuerza bruta**, para obtener la solución exacta.
+* **Programación dinámica**, para optimizar la búsqueda mediante subproblemas.
+* **Algoritmo voraz (greedy)**, como aproximación rápida basada en decisiones locales.
+
+El objetivo es comparar su **precisión, eficiencia y escalabilidad**, aplicando los conceptos teóricos vistos en el curso.
+
+---
