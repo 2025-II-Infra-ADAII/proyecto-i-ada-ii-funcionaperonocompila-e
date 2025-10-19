@@ -1,24 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-test_voraz.py — pruebas automáticas para el algoritmo voraz de riego óptimo.
+Pruebas automáticas para el algoritmo voraz de riego óptimo.
 
-Estructura esperada:
-  src/voraz.py   → contiene la función y CLI principal
-  tests/test_voraz.py → este archivo (ejecutar con pytest o directamente)
-
-Uso desde terminal:
-    pytest tests/test_voraz.py
-o simplemente:
-    python tests/test_voraz.py
+Se prueba:
+- Formato I/O exigido (n+1 líneas).
+- Valores esperados para F1 y F2 con la regla (ts asc, -p desc, tr asc).
+- El test usa el CLI, verificando que el pipeline de "compilar" sea coherente con la entrega.
 """
 
-import os
-import subprocess
 from pathlib import Path
+import subprocess
+import pytest
 
-# ----------------------------
-# Rutas base
-# ----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 SRC = BASE_DIR / "src" / "voraz.py"
 TESTS_DIR = BASE_DIR / "tests"
@@ -26,49 +19,61 @@ ENTRADA = TESTS_DIR / "entrada.txt"
 SALIDA = TESTS_DIR / "salida.txt"
 
 
-# ----------------------------
-# Función auxiliar para escribir un archivo de entrada
-# ----------------------------
-def crear_archivo_entrada():
-    contenido = """5
+def _escribir(path: Path, contenido: str):
+    path.write_text(contenido, encoding="utf-8")
+
+
+def _leer_salida():
+    lineas = [ln.strip() for ln in SALIDA.read_text(encoding="utf-8").splitlines() if ln.strip()]
+    costo = int(lineas[0])
+    orden = list(map(int, lineas[1:]))
+    return costo, orden, lineas
+
+
+def test_cli_F1_formato_y_valores():
+    """Entrada F1 del enunciado: costo=20, orden=[2,1,4,3,0]."""
+    entrada = """5
 10,3,4
 5,3,3
 2,2,1
 8,1,1
 6,4,2
 """
-    with open(ENTRADA, "w", encoding="utf-8") as f:
-        f.write(contenido)
-
-
-# ----------------------------
-# Prueba principal
-# ----------------------------
-def probar_algoritmo_voraz():
-    """Ejecuta voraz.py sobre la entrada de ejemplo y valida la salida."""
-    crear_archivo_entrada()
-
-    # Ejecutar el script src/voraz.py desde consola
+    _escribir(ENTRADA, entrada)
     subprocess.run(["python", str(SRC), str(ENTRADA), str(SALIDA)], check=True)
 
-    # Leer la salida
-    with open(SALIDA, "r", encoding="utf-8") as f:
-        lineas = [ln.strip() for ln in f if ln.strip() != ""]
-
-    costo = int(lineas[0])
-    orden = list(map(int, lineas[1:]))
-
-    print("Costo obtenido:", costo)
-    print("Orden de riego:", orden)
-
-    # Validar (según el resultado esperado del algoritmo voraz)
-    assert costo == 11, "El costo total debería ser 11 para el ejemplo 1"
-    assert orden == [2, 1, 4, 3, 0], "El orden de riego no coincide con el esperado"
+    costo, orden, lineas = _leer_salida()
+    assert len(lineas) == 6, "La salida debe tener exactamente n+1 líneas (6)."
+    assert costo == 20
+    assert orden == [2, 1, 4, 3, 0]
 
 
-# ----------------------------
-# Ejecución directa
-# ----------------------------
-if __name__ == "__main__":
-    probar_algoritmo_voraz()
-    print("\n✅ Prueba completada correctamente.")
+def test_cli_F2_formato_y_valores():
+    """Entrada F2: costo=24, orden=[2,1,4,3,0]."""
+    entrada = """5
+9,3,4
+5,3,3
+2,2,1
+8,1,1
+6,4,2
+"""
+    _escribir(ENTRADA, entrada)
+    subprocess.run(["python", str(SRC), str(ENTRADA), str(SALIDA)], check=True)
+
+    costo, orden, lineas = _leer_salida()
+    assert len(lineas) == 6
+    assert costo == 24
+    assert orden == [2, 1, 4, 3, 0]
+
+
+def test_error_si_archivo_tiene_mas_de_n_filas_de_datos():
+    """Debe fallar si hay más datos que n."""
+    entrada = """3
+5,1,2
+4,1,1
+6,2,3
+7,2,2
+"""
+    _escribir(ENTRADA, entrada)
+    with pytest.raises(subprocess.CalledProcessError):
+        subprocess.run(["python", str(SRC), str(ENTRADA), str(SALIDA)], check=True)

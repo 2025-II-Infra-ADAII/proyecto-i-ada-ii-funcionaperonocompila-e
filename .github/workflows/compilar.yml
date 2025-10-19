@@ -1,0 +1,70 @@
+name: Compilar
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "requirements.txt"
+      - "README.md"
+      - "pyproject.toml"
+      - "setup.cfg"
+      - ".github/workflows/compilar.yml"
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: compilar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar dependencias (opcional)
+        if: hashFiles('requirements.txt') != ''
+        run: |
+          pip install -r requirements.txt
+
+      - name: Compilar bytecode (.pyc)
+        run: |
+          python -m compileall -b src
+
+      - name: Instalar herramienta de build
+        run: |
+          pip install build
+
+      - name: Construir paquete (sdist y wheel)
+        run: |
+          python -m build  # genera dist/*.tar.gz y dist/*.whl
+
+      - name: Empaquetar artefacto (ZIP de entrega)
+        run: |
+          mkdir -p dist_artifacts
+          zip -r dist_artifacts/entrega.zip src tests README.md requirements.txt -x "*/__pycache__/*"
+
+      - name: Subir artefactos de entrega
+        uses: actions/upload-artifact@v4
+        with:
+          name: entrega-riego-voraz
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
+            dist_artifacts/entrega.zip
+          if-no-files-found: error
