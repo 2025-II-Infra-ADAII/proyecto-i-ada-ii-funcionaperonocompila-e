@@ -6,11 +6,6 @@ Regla voraz implementada:
     EDD con prioridades:
       Ordenar los tablones por (ts ascendente, p descendente, tr ascendente).
 
-Intuición de la regla:
-- ts (tiempo de supervivencia) pequeño => más urgente: conviene regarlo antes.
-- En empates de ts, priorizamos mayor p (más importante).
-- Si aún hay empate, menor tr (para no bloquear el recurso con riegos largos si no hay diferencia en urgencia).
-
 Formato de entrada (archivo de texto):
     n
     ts0,tr0,p0
@@ -64,7 +59,7 @@ def _calc_cost_and_starts(
 
     # t acumula el tiempo corrido del recurso de riego
     t = 0
-    for j, i in enumerate(perm):
+    for i in perm:
         start[i] = t
         ts, tr, p = finca[i]
         t += tr
@@ -117,6 +112,7 @@ def _leer_finca_desde_archivo(path: str) -> List[Tuple[int, int, int]]:
     Retorna una lista de tuplas (ts, tr, p).
     """
     with open(path, "r", encoding="utf-8") as f:
+        # Solo consideramos líneas no vacías (estrictas para el conteo)
         lineas = [ln.strip() for ln in f if ln.strip() != ""]
 
     if not lineas:
@@ -128,15 +124,19 @@ def _leer_finca_desde_archivo(path: str) -> List[Tuple[int, int, int]]:
     except Exception as e:
         raise ValueError("La primera línea debe ser un entero n.") from e
 
-    if len(lineas) - 1 < n:
-        raise ValueError(f"Se esperaban {n} líneas de tablones; llegaron {len(lineas)-1}.")
+    # 🔴 Validación estricta: deben ser exactamente n+1 líneas no vacías
+    if len(lineas) != 1 + n:
+        raise ValueError(
+            f"El archivo debe tener exactamente {n+1} líneas no vacías (n + datos={n}); "
+            f"se encontraron {len(lineas)}."
+        )
 
     finca: List[Tuple[int, int, int]] = []
     for k in range(1, 1 + n):
         partes = lineas[k].split(",")
         if len(partes) != 3:
             raise ValueError(
-                f"Línea {k+1}: se esperaban 3 valores separados por comas (ts,tr,p)."
+                f"Línea {k+1}: se esperaban exactamente 3 valores separados por comas (ts,tr,p)."
             )
         try:
             ts = int(partes[0].strip())
@@ -171,6 +171,13 @@ def _escribir_salida(path: str, costo: int, perm: List[int]) -> None:
             g.write(f"{i}\n")
 
 
+def _validar_permutacion(perm: List[int], n: int) -> None:
+    if len(perm) != n:
+        raise ValueError(f"La permutación debe tener {n} elementos; llegó {len(perm)}.")
+    if sorted(perm) != list(range(n)):
+        raise ValueError("La permutación debe contener exactamente los índices 0..n-1 sin repetir.")
+
+
 # ============================
 # CLI (para correr desde terminal)
 # ============================
@@ -181,9 +188,16 @@ def main(argv=None):
         sys.exit(2)
 
     entrada, salida = argv
-    finca = _leer_finca_desde_archivo(entrada)
-    perm, costo = roV(finca)
-    _escribir_salida(salida, costo, perm)
+    try:
+        finca = _leer_finca_desde_archivo(entrada)
+        perm, costo = roV(finca)
+        _validar_permutacion(perm, len(finca))
+        _escribir_salida(salida, costo, perm)
+    except Exception as e:
+        # Mensaje y salida con error para que los tests (subprocess.run(..., check=True))
+        # detecten el fallo como CalledProcessError.
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
