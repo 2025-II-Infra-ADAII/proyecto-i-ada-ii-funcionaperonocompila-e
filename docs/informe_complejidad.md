@@ -167,7 +167,7 @@ $$
 
 | Aspecto | Complejidad     |
 | ------- | ----------------|
-| Tiempo  |\((O(n \log n))\)|
+| Tiempo  |\((O(n log n))\)|
 | Espacio | $$(O(n))$$      |
 
 El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo mínimo global.
