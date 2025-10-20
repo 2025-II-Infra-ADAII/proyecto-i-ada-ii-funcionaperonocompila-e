@@ -26,6 +26,30 @@ Se implementaron tres estrategias clásicas de análisis de algoritmos:
 * **Programación dinámica**, para optimizar la búsqueda mediante subproblemas.
 * **Algoritmo voraz (greedy)**, como aproximación rápida basada en decisiones locales.
 
-El objetivo es comparar su **precisión, eficiencia y escalabilidad**, aplicando los conceptos teóricos vistos en el curso.
+#🎯 Objetivo General
 
+Desarrollar e implementar tres estrategias de resolución del problema del riego óptimo, comparando sus resultados en términos de eficiencia, exactitud y escalabilidad, con base en los principios del Análisis y Diseño de Algoritmos II.
+
+#🧠 Enfoque del Proyecto
+
+El desarrollo se orientó bajo tres pilares fundamentales:
+
+**Diseño modular**: Cada técnica se implementó en un módulo independiente dentro de la carpeta src/, asegurando claridad y mantenibilidad.
+
+**Evaluación experimental**: Se realizaron pruebas con distintos tamaños de finca para observar el comportamiento temporal y la escalabilidad de cada método.
+
+**Validación automatizada**: Las pruebas unitarias fueron diseñadas usando pytest para verificar el correcto funcionamiento de los módulos y funciones auxiliares.
+
+#🔍 Resultado Esperado
+
+El análisis comparativo de las tres estrategias permite visualizar las ventajas y limitaciones de cada enfoque.
+En particular:
+
+La fuerza bruta sirve como referencia exacta.
+
+La programación dinámica busca el equilibrio entre precisión y eficiencia.
+
+El algoritmo voraz prioriza la velocidad, sacrificando parte de la exactitud.
+
+En conjunto, este proyecto ilustra cómo los distintos paradigmas algorítmicos abordan un mismo problema con perspectivas de exhaustividad, optimización y heurística, demostrando su aplicabilidad práctica en problemas reales de optimización.
 ---
