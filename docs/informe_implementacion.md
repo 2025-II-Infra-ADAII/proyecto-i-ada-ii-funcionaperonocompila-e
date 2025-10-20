@@ -323,7 +323,7 @@ El desarrollo del proyecto permitió analizar y comparar tres enfoques clásicos
 
 3. **Algoritmo Voraz (`roV`)**
 
-   * Utiliza criterios heurísticos (tiempo de supervivencia, prioridad y tiempo de riego) para obtener una **solución aproximada** de manera muy eficiente ![formula21](https://latex.codecogs.com/svg.image?{\color{white}$$((O(n\log&space;n)))$$$}).
+   * Utiliza criterios heurísticos (tiempo de supervivencia, prioridad y tiempo de riego) para obtener una **solución aproximada** de manera muy eficiente ![formula21](https://latex.codecogs.com/svg.image?{\color{white}$$((O(n\log&space;n)))$$}).
    * Aunque no siempre garantiza el costo mínimo global, produce resultados **prácticamente válidos** en fracciones de segundo.
    * Es la mejor alternativa para **instancias grandes o en tiempo real**.
 
