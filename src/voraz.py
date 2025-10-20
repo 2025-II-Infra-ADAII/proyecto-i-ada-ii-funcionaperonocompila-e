@@ -36,6 +36,7 @@ import sys
 # ============================
 # Cálculo de costo y tiempos
 # ============================
+#==============================
 def _calc_cost_and_starts(
     finca: List[Tuple[int, int, int]], perm: List[int]
 ):
@@ -124,7 +125,7 @@ def _leer_finca_desde_archivo(path: str) -> List[Tuple[int, int, int]]:
     except Exception as e:
         raise ValueError("La primera línea debe ser un entero n.") from e
 
-    # 🔴 Validación estricta: deben ser exactamente n+1 líneas no vacías
+    #  Validación estricta: deben ser exactamente n+1 líneas no vacías
     if len(lineas) != 1 + n:
         raise ValueError(
             f"El archivo debe tener exactamente {n+1} líneas no vacías (n + datos={n}); "
