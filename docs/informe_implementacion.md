@@ -2,7 +2,7 @@
 
 # 💧 Informe de Implementación — Problema del Riego Óptimo
 
-**Estudiante:** Kevin Andrés Bejarano
+**Estudiantes:** Kevin Andrés Bejarano,Juan Jose millan, Harrison Valencia , Daniel Camelo
 **Curso:** Análisis de Algoritmos II (ADA II)
 **Periodo:** 2025-II
 **Profesor:** Carlos Andrés Delgado Saavedra
