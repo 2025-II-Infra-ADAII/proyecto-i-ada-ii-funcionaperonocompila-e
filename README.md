@@ -8,18 +8,13 @@
 
 ---
 
-## 👥 Integrantes del Grupo
+| Nombre Completo           | Código    | Rol                                       | 
+| ------------------------- | --------- | ----------------------------------------- | 
+| **Kevin Andrés Bejarano** | 202067678 | Desarrollador (Fuerza Bruta y Estructura) | 
+| **Juan José Millán**      | 2266393   | Desarrollador (Utils)                     | 
+| **Daniel Camero Castro**  | 202477171 | Desarrollador (Algoritmo Voraz)           | 
+| **Harrison Valencia**     | 202159979 | Desarrollador (Programacion Dinamica)     | 
 
-| Nombre Completo           | Código   | Rol                                                   | Correo Electrónico                                                                  |
-| ------------------------- | -------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **[Kevin Andrés Bejarano]** | 202067678 |
-
-| **[Juan Jose Millan]**         | [2266393] |                         | 
-             |
-| **[Daniel Camero Castro]**         | [202477171] |
-
-| **[Harrison Valencia]**         | [202159979] |
----
 
 ## 📌 Descripción del Proyecto
 
