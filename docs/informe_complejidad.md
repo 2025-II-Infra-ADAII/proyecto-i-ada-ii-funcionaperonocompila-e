@@ -52,11 +52,8 @@ Para cada permutación se calcula el costo en tiempo (O(n)).
 
 Por tanto:
 
-[
-$$
-T(n) = O(n \cdot n!) = O(n!)
-$$
-]
+
+![formula2](https://latex.codecogs.com/svg.image?{\color{white}[$$T(n)=O(n\cdot&space;n!)=O(n!)$$]})
 
 **Crecimiento exponencial:** incluso para (n=10), se generan 3.6 millones de permutaciones.
 
@@ -68,12 +65,8 @@ $$
 
 Por tanto:
 
-[
-$$
-S(n) = O(n)
-$$
-]
-ó $$ O(n! \cdot n)$$ si se guardan todas las combinaciones.
+![formula3](https://latex.codecogs.com/svg.image?{\color{white}[$$S(n)=O(n)$$]})
+ó $$ ![formula4](https://latex.codecogs.com/svg.image?{\color{white}$$O(n!\cdot&space;n)$$})si se guardan todas las combinaciones.
 
 
 ### 📈 Resumen
@@ -96,11 +89,7 @@ Cada estado `dp[S]` (donde `S` es un subconjunto de tablones) representa el cost
 
 Para cada subconjunto y posible tablón final, se calcula:
 
-[
-$$
-dp[S][j] = \min_{i \in S \setminus {j}} \big( dp[S - {j}][i] + p_j \cdot \max(0, (t_{prev} + tr_j - ts_j)) \big)
-$$
-]
+![formula4](https://latex.codecogs.com/svg.image?{\color{white}$$dp[S][j]=\min_{i\in&space;S\setminus{j}}\big(dp[S-{j}][i]&plus;p_j\cdot\max(0,(t_{prev}&plus;tr_j-ts_j))\big)$$})
 
 Esto evita recalcular combinaciones, reutilizando resultados de subconjuntos previos.
 
@@ -111,11 +100,7 @@ Esto evita recalcular combinaciones, reutilizando resultados de subconjuntos pre
 
 Por tanto:
 
-[
-$$
-T(n) = O(n^2 \cdot 2^n)
-$$
-]
+
 
 Esto reduce drásticamente la complejidad respecto a la fuerza bruta, pero sigue siendo **exponencial**.
 
@@ -123,17 +108,13 @@ Esto reduce drásticamente la complejidad respecto a la fuerza bruta, pero sigue
 
 Cada subconjunto `S` mantiene hasta (n) costos asociados.
 En total:
-$$
-[
-S(n) = O(n \cdot 2^n)
-]
-$$
+![formula5](https://latex.codecogs.com/svg.image?{\color{white}$$T(n)=O(n^2\cdot&space;2^n)$$})
 ### 📈 Resumen
 
-| Aspecto | Complejidad          |
-| ------- | ---------------------|
-| Tiempo  |$$ O(n^2 \cdot 2^n) $$|
-| Espacio |$$ O(n \cdot 2^n) $$  |
+| Aspecto | Complejidad                                                                              |
+| ------- | -----------------------------------------------------------------------------------------|
+| Tiempo  |![formula6](https://latex.codecogs.com/svg.image?{\color{white}$$O(n^2\cdot&space;2^n)$$})|
+| Espacio | ![formula7](https://latex.codecogs.com/svg.image?{\color{white}$$O(n\cdot&space;2^n)$$}) |
 
 Este método logra la **solución óptima** pero con un alto costo de memoria, siendo útil para (n \leq 20).
 
@@ -164,18 +145,14 @@ $$ T(n) = O(n \log n) $$
 
 * Se almacena una lista con (n) índices y tres arreglos temporales (start, completion, costo).
 
-[
-$$
-S(n) = O(n)
-$$
-]
+![formula7](https://latex.codecogs.com/svg.image?{\color{white}$$S(n)=O(n)$$})
 
 ### 📈 Resumen
 
-| Aspecto | Complejidad     |
-| ------- | ----------------|
-| Tiempo  |$$ O(n log n) $$|
-| Espacio | $$ O(n) $$      |
+| Aspecto | Complejidad                                                                                 |
+| ------- | --------------------------------------------------------------------------------------------|
+| Tiempo  | ![formula8](https://latex.codecogs.com/svg.image?{\color{white}$$O(n&space;log&space;n)$$|})|
+| Espacio | ![formula9](https://latex.codecogs.com/svg.image?{\color{white}$$O(n)$$|})                  |
 
 El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo mínimo global.
 
