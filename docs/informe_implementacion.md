@@ -327,7 +327,7 @@ El desarrollo del proyecto permitió analizar y comparar tres enfoques clásicos
    * Aunque no siempre garantiza el costo mínimo global, produce resultados **prácticamente válidos** en fracciones de segundo.
    * Es la mejor alternativa para **instancias grandes o en tiempo real**.
 
-### 💡 Conclusión general
+### 💡 Conclusión general del proyecto
 
 El proyecto demostró cómo los tres paradigmas de diseño de algoritmos —**exhaustivo**, **optimizado** y **heurístico**— pueden aplicarse a un mismo problema con resultados muy distintos.
 
