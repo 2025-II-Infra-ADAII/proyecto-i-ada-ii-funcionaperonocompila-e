@@ -1,3 +1,4 @@
+import time
 
 def calcular_costo(finca, permutacion):
     
@@ -55,4 +56,17 @@ def guardar_salida(ruta_archivo, costo, permutacion):
         f.write(str(costo) + '\n')
         for i in permutacion:
             f.write(str(i) + '\n')
+
+def medir_tiempo(funcion, finca):
+    """
+    con esta funcion medimos el tiempo que tarda cada funcion implementada
+    en calcular los resultados, este recibe la funcion y finca con las tuplas
+    """
+    inicio = time.time()
+    perm, costo = funcion(finca)
+    fin = time.time()
+    duracion = fin - inicio
+    return perm, costo, duracion
+
+            
     
