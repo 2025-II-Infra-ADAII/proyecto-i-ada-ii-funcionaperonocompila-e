@@ -23,9 +23,9 @@ Cada tablón (T_i) se define como una tupla ((ts_i, tr_i, p_i)):
 El **costo total** se calcula como:
 
 [
-$$
+$
 CRF_{\Pi} = \sum_{i=0}^{n-1} p_i \cdot \max(0, (t_i + tr_i) - ts_i)
-$$
+$
 ]
 
 donde $$(\Pi)$$ es la permutación que representa el orden de riego.
