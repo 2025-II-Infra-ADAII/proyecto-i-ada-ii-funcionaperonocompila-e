@@ -111,10 +111,10 @@ En total:
 ![formula5](https://latex.codecogs.com/svg.image?{\color{white}$$T(n)=O(n^2\cdot&space;2^n)$$})
 ### 📈 Resumen
 
-| Aspecto | Complejidad                                                                              |
-| ------- | -----------------------------------------------------------------------------------------|
-| Tiempo  |![formula6](https://latex.codecogs.com/svg.image?{\color{white}$$O(n^2\cdot&space;2^n)$$})|
-| Espacio | ![formula7](https://latex.codecogs.com/svg.image?{\color{white}$$O(n\cdot&space;2^n)$$}) |
+| Aspecto | Complejidad          |
+| ------- | ---------------------|
+| Tiempo  |$$ O(n^2 \cdot 2^n) $$|
+| Espacio |$$ O(n \cdot 2^n) $$  |
 
 Este método logra la **solución óptima** pero con un alto costo de memoria, siendo útil para (n \leq 20).
 
@@ -149,10 +149,10 @@ $$ T(n) = O(n \log n) $$
 
 ### 📈 Resumen
 
-| Aspecto | Complejidad                                                                                 |
-| ------- | --------------------------------------------------------------------------------------------|
-| Tiempo  | ![formula8](https://latex.codecogs.com/svg.image?{\color{white}$$O(n&space;log&space;n)$$|})|
-| Espacio | ![formula9](https://latex.codecogs.com/svg.image?{\color{white}$$O(n)$$|})                  |
+| Aspecto | Complejidad     |
+| ------- | ----------------|
+| Tiempo  |$$ O(n log n) $$ |
+| Espacio | $$ O(n) $$      |
 
 El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo mínimo global.
 
