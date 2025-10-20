@@ -12,13 +12,13 @@
 
 | Nombre Completo           | Código   | Rol                                                   | Correo Electrónico                                                                  |
 | ------------------------- | -------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **Kevin Andrés Bejarano** | 202067678 |
+| **[Kevin Andrés Bejarano]** | 202067678 |
 
-| **[Compañero 2]**         | [Código] |                         | 
+| **[Juan Jose Millan]**         | [2266393] |                         | 
              |
-| **[Compañero 3]**         | [Código] |
+| **[Daniel Camero Castro]**         | [202477171] |
 
-| **[Compañero 4]**         | [Código] |
+| **[Harrison Valencia]**         | [202159979] |
 ---
 
 ## 📌 Descripción del Proyecto

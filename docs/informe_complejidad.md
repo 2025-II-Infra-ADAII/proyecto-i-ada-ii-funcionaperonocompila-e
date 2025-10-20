@@ -1,132 +1,203 @@
 
-# 🧮 Informe de Complejidad — Proyecto de Riego Óptimo
+---
 
-**Estudiante:** Kevin Andrés Bejarano
-**Curso:** Análisis de Algoritmos II (ADA II)
+# 📊 Informe de Complejidad — Problema del Riego Óptimo
+
+**Curso:** Análisis de Algoritmos II
 **Periodo:** 2025-II
-**Profesor:** Carlos Andrés Delgado Saavedra
+**Autor:** Kevin Andrés Bejarano
+**Tema:** Comparación de complejidad entre enfoques: Fuerza Bruta, Programación Dinámica y Voraz.
 
 ---
 
-## 🧩 Contexto general
+## 🌾 0. Descripción del problema
 
-El **problema del riego óptimo** busca determinar el orden ideal en el que deben regarse los **tablones de cultivo** para minimizar el sufrimiento de las plantas por falta de agua.
-Cada tablón posee tres características:
+El **problema del riego óptimo** busca determinar el orden en que deben regarse los tablones de una finca para **minimizar el sufrimiento del cultivo por falta de agua**.
 
-* ( ts_i ): tiempo máximo que puede permanecer sin riego (supervivencia),
-* ( tr_i ): tiempo que toma regarlo,
-* ( p_i ): prioridad del tablón (1 a 4).
+Cada tablón (T_i) se define como una tupla ((ts_i, tr_i, p_i)):
 
-La solución se basa en encontrar la **permutación óptima** ( \Pi ) de los tablones que minimice el costo total:
+* (ts_i): tiempo de supervivencia (días que puede estar sin riego),
+* (tr_i): tiempo que tarda en regarse,
+* (p_i): prioridad del tablón (1–4, donde 4 es la más alta).
 
+El **costo total** se calcula como:
+$$
 [
-CRF_{\Pi} = \sum_{i=0}^{n-1} p_i \cdot \max(0, (t_{\Pi_i} + tr_i) - ts_i)
+CRF_{\Pi} = \sum_{i=0}^{n-1} p_i \cdot \max(0, (t_i + tr_i) - ts_i)
 ]
+$$
+donde $$(\Pi)$$ es la permutación que representa el orden de riego.
 
-donde (t_{\Pi_i}) representa el instante en el que comienza el riego del tablón (i) según la permutación seleccionada.
+El objetivo es **encontrar la permutación que minimice** este costo total.
 
 ---
 
-## ⚙️ Implementación: Fuerza Bruta (`roFB`)
+## ⚙️ 1. Algoritmo de Fuerza Bruta
 
-### Descripción general
+### 🔹 Descripción
 
-El método **fuerza bruta (roFB)** genera **todas las permutaciones posibles** del conjunto de tablones y calcula el **costo total de riego** para cada una, seleccionando la de menor costo.
+La solución por **fuerza bruta** explora **todas las permutaciones posibles** del conjunto de tablones, calcula el costo total de riego para cada una usando la función `calcular_costo`, y selecciona la de menor costo.
 
-El cálculo del costo total se apoya en la función auxiliar `calcular_costo(finca, perm)`, la cual:
-
-1. Calcula los tiempos de inicio de riego acumulados.
-2. Evalúa el retraso de cada tablón respecto a su tiempo de supervivencia.
-3. Suma las penalizaciones ponderadas por la prioridad (p_i).
-
-### código
+Pseudocódigo simplificado:
 
 ```python
-def roFB(finca):
-    mejor_perm = None
-    mejor_costo = ∞
-    for perm in todas_las_permutaciones(finca):
-        costo = calcular_costo(finca, perm)
-        if costo < mejor_costo:
-            mejor_perm = perm
-            mejor_costo = costo
-    return mejor_perm, mejor_costo
+for perm in itertools.permutations(range(n)):
+    costo = calcular_costo(finca, perm)
+    if costo < mejor_costo:
+        mejor_costo = costo
+        mejor_perm = perm
 ```
 
----
+### ⏱️ Complejidad temporal
 
-## ⏱️ Complejidad temporal
+El número de permutaciones posibles es (n!).
+Para cada permutación se calcula el costo en tiempo (O(n)).
 
-La función `roFB` recorre **todas las permutaciones posibles** de los (n) tablones:
-
-[
-n!
-]
-
-Para cada permutación, la función auxiliar `calcular_costo` evalúa los (n) tablones, realizando operaciones constantes en cada iteración.
-Por tanto, el costo total en tiempo es:
-
+Por tanto:
+$$
 [
 T(n) = O(n \cdot n!) = O(n!)
 ]
+$$
+**Crecimiento exponencial:** incluso para (n=10), se generan 3.6 millones de permutaciones.
 
-> 🔹 **Interpretación:**
-> El algoritmo explora exhaustivamente todo el espacio de búsqueda.
-> Para valores pequeños (ej. (n \le 8)), es viable;
-> pero el tiempo crece de forma explosiva a medida que se agregan tablones.
+### 💾 Complejidad espacial
 
-| n (tablones) | Permutaciones (n!) | Escalamiento aproximado |
-| ------------ | ------------------ | ----------------------- |
-| 3            | 6                  | Rápido                  |
-| 5            | 120                | Aceptable               |
-| 8            | 40,320             | Muy lento               |
-| 10           | 3,628,800          | Prácticamente inviable  |
-
----
-
-## 💾 Complejidad espacial
-
-El algoritmo mantiene:
-
-* La lista original de tablones: (O(n))
-* Una variable para la mejor permutación: (O(n))
-* Una permutación temporal generada por `itertools.permutations` (iterador interno): (O(n))
+* Se mantiene una lista temporal de longitud (n).
+* En la versión `roFB_all`, se almacenan todas las permutaciones con su costo → (O(n! \cdot n)).
+* En la versión `roFB`, solo la mejor solución → (O(n)).
 
 Por tanto:
-
+$$
 [
 S(n) = O(n)
 ]
+(ó (O(n! \cdot n)) si se guardan todas las combinaciones).
+$$
 
-> El consumo de memoria crece linealmente con el número de tablones, ya que solo se almacena una permutación a la vez y el costo actual.
+### 📈 Resumen
 
----
+| Aspecto | Complejidad |
+| ------- | ----------- |
+| Tiempo  | (O(n!))     |
+| Espacio | (O(n))      |
 
-## 📊 Resumen analítico
-
-| Estrategia            | Complejidad temporal | Complejidad espacial | Viabilidad práctica        |
-| --------------------- | -------------------- | -------------------- | -------------------------- |
-| Fuerza bruta (`roFB`) | (O(n!))              | (O(n))               | Solo viable para (n \le 8) |
-
----
-
-## 📈 Interpretación teórica
-
-La fuerza bruta garantiza encontrar la **solución óptima exacta**, pero **sacrifica eficiencia**:
-
-* Escala factorialmente: cada tablón adicional multiplica las permutaciones por un nuevo factor.
-* No reutiliza resultados ni aplica podas, a diferencia de métodos dinámicos o voraces.
-* Es ideal para **validar** resultados de otras estrategias más eficientes (sirve como referencia exacta para comparar la precisión de algoritmos aproximados).
+La fuerza bruta **garantiza la solución óptima**, pero solo es viable para fincas pequeñas (≤8 tablones).
 
 ---
 
-## 🧠 Conclusiones personales
+## 🧮 2. Algoritmo de Programación Dinámica
 
-* La creación de una **estructura modular del proyecto** (carpetas `src`, `tests`, `data`, `docs`, etc.) permitió una organización clara del código, separando las implementaciones de cada técnica.
-* La implementación del algoritmo **fuerza bruta** refleja la esencia del análisis de algoritmos: garantiza la solución exacta, pero muestra el impacto directo del crecimiento factorial en la práctica.
-* Este método, aunque poco escalable, es **fundamental como referencia de verificación** para las estrategias **dinámica y voraz**, que sacrifican exactitud por eficiencia.
+### 🔹 Descripción
+
+El algoritmo de **programación dinámica** implementa un enfoque **Bottom-Up** que guarda resultados de subproblemas en un diccionario `dp`.
+Cada estado `dp[S]` (donde `S` es un subconjunto de tablones) representa el costo mínimo al regar los tablones en `S`.
+
+Para cada subconjunto y posible tablón final, se calcula:
+$$
+[
+dp[S][j] = \min_{i \in S \setminus {j}} \big( dp[S - {j}][i] + p_j \cdot \max(0, (t_{prev} + tr_j - ts_j)) \big)
+]
+$$
+Esto evita recalcular combinaciones, reutilizando resultados de subconjuntos previos.
+
+### ⏱️ Complejidad temporal
+
+* Número de subconjuntos posibles: (2^n).
+* Para cada subconjunto se prueba cada tablón (j), y dentro de eso se busca el mejor previo (i), lo cual cuesta (O(n)).
+
+Por tanto:
+$$
+[
+T(n) = O(n^2 \cdot 2^n)
+]
+$$
+Esto reduce drásticamente la complejidad respecto a la fuerza bruta, pero sigue siendo **exponencial**.
+
+### 💾 Complejidad espacial
+
+Cada subconjunto `S` mantiene hasta (n) costos asociados.
+En total:
+$$
+[
+S(n) = O(n \cdot 2^n)
+]
+$$
+### 📈 Resumen
+
+| Aspecto | Complejidad          |
+| ------- | ---------------------|
+| Tiempo  |\((O(n^2 \cdot 2^n))\)|
+| Espacio |\((O(n \cdot 2^n))\)  |
+
+Este método logra la **solución óptima** pero con un alto costo de memoria, siendo útil para (n \leq 20).
 
 ---
+
+## ⚡ 3. Algoritmo Voraz
+
+### 🔹 Descripción
+
+El método **voraz** implementa una regla **EDD (Earliest Due Date)** modificada por prioridad:
+se ordenan los tablones por **tiempo de supervivencia ascendente**, **prioridad descendente**, y **tiempo de riego ascendente**.
+
+```python
+pi = sorted(indices, key=lambda i: (ts[i], -p[i], tr[i]))
+```
+
+Luego se calcula el costo una única vez con esa secuencia.
+
+### ⏱️ Complejidad temporal
+
+* Ordenamiento de (n) elementos: (O(n \log n)).
+* Cálculo del costo: (O(n)).
+
+Por tanto:
+$$
+[
+T(n) = O(n \log n)
+]
+$$
+### 💾 Complejidad espacial
+
+* Se almacena una lista con (n) índices y tres arreglos temporales (start, completion, costo).
+$$
+[
+S(n) = O(n)
+]
+$$
+### 📈 Resumen
+
+| Aspecto | Complejidad     |
+| ------- | ----------------|
+| Tiempo  |\((O(n \log n))\)|
+| Espacio | $$(O(n))$$      |
+
+El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo mínimo global.
+
+---
+
+## 📊 4. Comparación general
+
+| Método                | Exactitud  | Complejidad Temporal   | Complejidad Espacial | Escalabilidad |
+| --------------------- | ---------- | ---------------------- | -------------------- | ------------- |
+| Fuerza Bruta          | Óptimo     | \((O(n!))\)            | \((O(n))\)           | Muy baja      |
+| Programación Dinámica | Óptimo     | \((O(n^2 \cdot 2^n))\) | \((O(n \cdot 2^n))\) | Media         |
+| Voraz                 | Aproximado | (O(n \log n))          | \((O(n))\)           | Alta          |
+
+
+Comparacion teorica de complejidades en tiempo y espacio para las tres estrategias implementadas.
+
+! [Comparativa de tiempo](../imagenes_informe/comparativa.png)
+
+---
+
+## 🧠 5. Conclusiones
+
+* **Fuerza Bruta** asegura la solución óptima pero su crecimiento factorial la vuelve inviable a partir de $$(n \ge 9)$$.
+* **Programación Dinámica** ofrece una mejora sustancial, manteniendo la optimalidad con un costo exponencial más manejable.
+* **Voraz** es la opción más eficiente para fincas grandes, sacrificando exactitud por velocidad.
+* En contextos reales (fincas grandes), el algoritmo **voraz** es la mejor opción práctica.
 
 ---
 
