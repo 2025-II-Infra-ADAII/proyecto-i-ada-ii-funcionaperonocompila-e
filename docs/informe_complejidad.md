@@ -153,11 +153,8 @@ Luego se calcula el costo una única vez con esa secuencia.
 * Cálculo del costo: (O(n)).
 
 Por tanto:
-$$
-[
-T(n) = O(n \log n)
-]
-$$
+![T(n) = O(n \log n)](https://latex.codecogs.com/png.image?\dpi{110}T(n)=O(n\log n))
+
 ### 💾 Complejidad espacial
 
 * Se almacena una lista con (n) índices y tres arreglos temporales (start, completion, costo).
