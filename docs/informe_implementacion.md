@@ -20,17 +20,11 @@ Cada tablón (T_i) tiene tres características:
 * (p_i): prioridad del tablón (1 = baja, 4 = alta).
 
 La finca se modela como:
-$$
-F = \langle T_0, T_1, \dots, T_{n-1} \rangle
-$$
+![formula12](https://latex.codecogs.com/svg.image?{\color{white}$$F=\langle&space;T_0,T_1,\dots,T_{n-1}\rangle$$})
 
 El objetivo es encontrar una **permutación óptima** ( \Pi ) que minimice el costo total:
-$$
-[
-CRF_{\Pi} = \sum_{i=0}^{n-1} p_i \cdot \max(0, (t_{\Pi_i} + tr_i) - ts_i)
-]
-$$
-donde (t_{\Pi_i}) representa el instante en que inicia el riego del tablón (i) según el orden (\Pi).
+![formula13](https://latex.codecogs.com/svg.image?{\color{white}$$CRF_{\Pi}=\sum_{i=0}^{n-1}p_i\cdot\max(0,(t_{\Pi_i}&plus;tr_i)-ts_i)$$})
+donde (t_{\Pi_i}) representa el instante en que inicia el riego del tablón (i) según el orden ![formula14](https://latex.codecogs.com/svg.image?{\color{white}(\Pi)}).
 
 ---
 
@@ -106,7 +100,7 @@ El script lee los datos de `data/ejemplo1.txt`, aplica las tres estrategias (si 
 
 ## 4. Idea de la solución — Fuerza Bruta
 
-La estrategia de **fuerza bruta (roFB)** consiste en probar **todas las permutaciones posibles** del orden de riego de los tablones y seleccionar aquella que minimice el costo total (CRF_\Pi).
+La estrategia de **fuerza bruta (roFB)** consiste en probar **todas las permutaciones posibles** del orden de riego de los tablones y seleccionar aquella que minimice el costo total ![formula15](https://latex.codecogs.com/svg.image?{\color{white}(CRF_\Pi)}).
 
 ### 📘 Definición funcional
 
@@ -219,7 +213,7 @@ def programacion_dinamica(finca):
 
 * Usa un enfoque **Bottom-Up** con almacenamiento de subproblemas.
 * Reduce cálculos redundantes y garantiza la **solución óptima**.
-* Su complejidad es **exponencial optimizada**, (O(n^2 \cdot 2^n)), mucho más eficiente que la fuerza bruta.
+* Su complejidad es **exponencial optimizada**, ![formula16](https://latex.codecogs.com/svg.image?{\color{white}(O(n^2\cdot&space;2^n))}), mucho más eficiente que la fuerza bruta.
 
 ---
 
@@ -258,7 +252,7 @@ def roV(finca: List[Tuple[int, int, int]]):
 
 ### 🧠 Descripción
 
-* **Ordena** los tablones de forma eficiente ((O(n \log n))).
+* **Ordena** los tablones de forma eficiente ![formula17](https://latex.codecogs.com/svg.image?{\color{white}((O(n\log&space;n)))}).
 * Da prioridad a los tablones con **menos tiempo de supervivencia** y **mayor prioridad**.
 * No garantiza la solución óptima, pero obtiene una **respuesta cercana** con tiempos muy bajos.
 
@@ -324,12 +318,12 @@ El desarrollo del proyecto permitió analizar y comparar tres enfoques clásicos
 2. **Programación Dinámica (`programacion_dinamica`)**
 
    * Reduce el número de cálculos repetidos mediante el uso de subproblemas y almacenamiento parcial.
-   * Mantiene la **exactitud de la fuerza bruta**, pero con una mejora significativa en rendimiento $$((O(n^2 \cdot 2^n)))$$.
+   * Mantiene la **exactitud de la fuerza bruta**, pero con una mejora significativa en rendimiento ![formula19](https://latex.codecogs.com/svg.image?{\color{white}$$((O(n^2\cdot&space;2^n)))$$}).
    * Su consumo de memoria es alto, pero logra un equilibrio razonable entre tiempo y precisión, siendo aplicable a **instancias medianas**.
 
 3. **Algoritmo Voraz (`roV`)**
 
-   * Utiliza criterios heurísticos (tiempo de supervivencia, prioridad y tiempo de riego) para obtener una **solución aproximada** de manera muy eficiente $$((O(n \log n)))$$.
+   * Utiliza criterios heurísticos (tiempo de supervivencia, prioridad y tiempo de riego) para obtener una **solución aproximada** de manera muy eficiente ![formula21](https://latex.codecogs.com/svg.image?{\color{white}$$((O(n\log&space;n)))$$$}).
    * Aunque no siempre garantiza el costo mínimo global, produce resultados **prácticamente válidos** en fracciones de segundo.
    * Es la mejor alternativa para **instancias grandes o en tiempo real**.
 
