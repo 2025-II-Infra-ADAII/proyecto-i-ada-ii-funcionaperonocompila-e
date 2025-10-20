@@ -1,8 +1,8 @@
 import math
 from itertools import combinations
-from utils import leer_finca
 
-def programacion_dinamica(finca):
+
+def roPD(finca):
     """
     Programación dinámica Bottom-Up (sin máscaras)
     Retorna el costo mínimo y el orden óptimo de riego.
@@ -17,12 +17,8 @@ def programacion_dinamica(finca):
         subset = (i,)
         ts, tr, p = finca[i]
         retraso = max(0, tr - ts)
-        dp[subset] = {i: p * retraso}
-        print("--------------------subset")
-        print(dp)
-        print("--------------------parent")
+        dp[subset] = {i: p * retraso}        
         parent[subset] = {i: None}
-        print(parent)
         
     # Construcción Bottom-Up
     for k in range(2, n+1):
@@ -69,11 +65,3 @@ def programacion_dinamica(finca):
     orden.reverse()
 
     return mejor_costo, orden
-
-
-if __name__ == "__main__":
-    finca = leer_finca("../data/ejemplo1.txt")
-    print("Finca cargada:", finca)
-    costo, orden = programacion_dinamica(finca)
-    print("Costo mínimo encontrado (DP):", costo)
-    print("Orden óptimo de riego:", orden)
