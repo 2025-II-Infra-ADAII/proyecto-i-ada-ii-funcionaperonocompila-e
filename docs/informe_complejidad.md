@@ -188,7 +188,7 @@ El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo míni
 
 Comparacion teorica de complejidades en tiempo y espacio para las tres estrategias implementadas.
 
-! [Comparativa de tiempo](../imagenes_informe/comparativa.png)
+![comparativas](./imagenes_informe/comparativa.png)
 
 ---
 
