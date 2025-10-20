@@ -21,11 +21,13 @@ Cada tablón (T_i) se define como una tupla ((ts_i, tr_i, p_i)):
 * (p_i): prioridad del tablón (1–4, donde 4 es la más alta).
 
 El **costo total** se calcula como:
-$$
+
 [
-CRF_{\Pi} = \sum_{i=0}^{n-1} p_i \cdot \max(0, (t_i + tr_i) - ts_i)
-]
 $$
+CRF_{\Pi} = \sum_{i=0}^{n-1} p_i \cdot \max(0, (t_i + tr_i) - ts_i)
+$$
+]
+
 donde $$(\Pi)$$ es la permutación que representa el orden de riego.
 
 El objetivo es **encontrar la permutación que minimice** este costo total.
@@ -54,11 +56,13 @@ El número de permutaciones posibles es (n!).
 Para cada permutación se calcula el costo en tiempo (O(n)).
 
 Por tanto:
-$$
+
 [
-T(n) = O(n \cdot n!) = O(n!)
-]
 $$
+T(n) = O(n \cdot n!) = O(n!)
+$$
+]
+
 **Crecimiento exponencial:** incluso para (n=10), se generan 3.6 millones de permutaciones.
 
 ### 💾 Complejidad espacial
@@ -68,19 +72,21 @@ $$
 * En la versión `roFB`, solo la mejor solución → (O(n)).
 
 Por tanto:
-$$
+
 [
-S(n) = O(n)
-]
-(ó (O(n! \cdot n)) si se guardan todas las combinaciones).
 $$
+S(n) = O(n)
+$$
+]
+ó $$ O(n! \cdot n)$$ si se guardan todas las combinaciones.
+
 
 ### 📈 Resumen
 
 | Aspecto | Complejidad |
 | ------- | ----------- |
-| Tiempo  | (O(n!))     |
-| Espacio | (O(n))      |
+| Tiempo  | $$ O(n!)$$  |
+| Espacio | $$ (O(n))$$ |
 
 La fuerza bruta **garantiza la solución óptima**, pero solo es viable para fincas pequeñas (≤8 tablones).
 
@@ -94,11 +100,13 @@ El algoritmo de **programación dinámica** implementa un enfoque **Bottom-Up** 
 Cada estado `dp[S]` (donde `S` es un subconjunto de tablones) representa el costo mínimo al regar los tablones en `S`.
 
 Para cada subconjunto y posible tablón final, se calcula:
-$$
+
 [
-dp[S][j] = \min_{i \in S \setminus {j}} \big( dp[S - {j}][i] + p_j \cdot \max(0, (t_{prev} + tr_j - ts_j)) \big)
-]
 $$
+dp[S][j] = \min_{i \in S \setminus {j}} \big( dp[S - {j}][i] + p_j \cdot \max(0, (t_{prev} + tr_j - ts_j)) \big)
+$$
+]
+
 Esto evita recalcular combinaciones, reutilizando resultados de subconjuntos previos.
 
 ### ⏱️ Complejidad temporal
@@ -107,11 +115,13 @@ Esto evita recalcular combinaciones, reutilizando resultados de subconjuntos pre
 * Para cada subconjunto se prueba cada tablón (j), y dentro de eso se busca el mejor previo (i), lo cual cuesta (O(n)).
 
 Por tanto:
-$$
+
 [
-T(n) = O(n^2 \cdot 2^n)
-]
 $$
+T(n) = O(n^2 \cdot 2^n)
+$$
+]
+
 Esto reduce drásticamente la complejidad respecto a la fuerza bruta, pero sigue siendo **exponencial**.
 
 ### 💾 Complejidad espacial
@@ -127,8 +137,8 @@ $$
 
 | Aspecto | Complejidad          |
 | ------- | ---------------------|
-| Tiempo  |\((O(n^2 \cdot 2^n))\)|
-| Espacio |\((O(n \cdot 2^n))\)  |
+| Tiempo  |$$ O(n^2 \cdot 2^n) $$|
+| Espacio |$$ O(n \cdot 2^n) $$  |
 
 Este método logra la **solución óptima** pero con un alto costo de memoria, siendo útil para (n \leq 20).
 
@@ -149,26 +159,28 @@ Luego se calcula el costo una única vez con esa secuencia.
 
 ### ⏱️ Complejidad temporal
 
-* Ordenamiento de (n) elementos: (O(n \log n)).
-* Cálculo del costo: (O(n)).
+* Ordenamiento de (n) elementos: $$ O(n \log n) $$.
+* Cálculo del costo: $$ (O(n)) $$.
 
 Por tanto:
-![T(n) = O(n \log n)](https://latex.codecogs.com/png.image?\dpi{110}T(n)=O(n\log n))
+$$ T(n) = O(n \log n) $$
 
 ### 💾 Complejidad espacial
 
 * Se almacena una lista con (n) índices y tres arreglos temporales (start, completion, costo).
-$$
+
 [
-S(n) = O(n)
-]
 $$
+S(n) = O(n)
+$$
+]
+
 ### 📈 Resumen
 
 | Aspecto | Complejidad     |
 | ------- | ----------------|
-| Tiempo  |$$(O(n log n))$$|
-| Espacio | $$(O(n))$$      |
+| Tiempo  |$$ O(n log n) $$|
+| Espacio | $$ O(n) $$      |
 
 El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo mínimo global.
 
@@ -178,9 +190,9 @@ El enfoque voraz es **muy eficiente**, aunque puede no garantizar el costo míni
 
 | Método                | Exactitud  | Complejidad Temporal   | Complejidad Espacial | Escalabilidad |
 | --------------------- | ---------- | ---------------------- | -------------------- | ------------- |
-| Fuerza Bruta          | Óptimo     | \((O(n!))\)            | \((O(n))\)           | Muy baja      |
-| Programación Dinámica | Óptimo     | \((O(n^2 \cdot 2^n))\) | \((O(n \cdot 2^n))\) | Media         |
-| Voraz                 | Aproximado | (O(n \log n))          | \((O(n))\)           | Alta          |
+| Fuerza Bruta          | Óptimo     | $$ O(n!) $$            | $$ O(n)$$            | Muy baja      |
+| Programación Dinámica | Óptimo     | $$ O(n^2 2^n) $$       | $$ O(n 2^n) $$       | Media         |
+| Voraz                 | Aproximado | (O(n \log n))          | $$ O(n) $$           | Alta          |
 
 
 Comparacion teorica de complejidades en tiempo y espacio para las tres estrategias implementadas.
